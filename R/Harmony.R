@@ -29,6 +29,7 @@ addHarmony <- function(
   groupBy = "Sample",
   verbose = TRUE,
   force = FALSE,
+  theta = 2,
   ...
   ){
 
@@ -41,6 +42,7 @@ addHarmony <- function(
   .validInput(input = groupBy, name = "groupBy", valid = c("character"))
   .validInput(input = verbose, name = "verbose", valid = c("boolean"))
   .validInput(input = force, name = "force", valid = c("boolean"))
+  .validInput(input = theta, name = "theta", valid = c("numeric", "null"))
 
   if(!is.null(ArchRProj@reducedDims[[name]])){
     if(!force){
@@ -64,6 +66,7 @@ addHarmony <- function(
   harmonyParams$do_pca <- FALSE
   harmonyParams$vars_use <- groupBy
   harmonyParams$plot_convergence <- FALSE
+  harmonyParams$theta <- theta
 
   #Call Harmony
   harmonyMat <- do.call(HarmonyMatrix, harmonyParams)
